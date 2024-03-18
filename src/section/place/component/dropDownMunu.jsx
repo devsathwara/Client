@@ -11,6 +11,7 @@ export default function DropDownMenu() {
 
   const handleSelect = (value) => {
 
+
     dispatch(onCategoryChange(value))
 
     setIsOpen(false);

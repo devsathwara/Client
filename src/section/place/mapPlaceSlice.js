@@ -18,11 +18,11 @@ export const mapPlaceSlice = createSlice({
 
 
             if (action.payload === "all") {
-                state.places = places.collages
+                state.places = places.places
                 state.category = "all"
             }
             else {
-                state.places = places.collages.filter((e) => (e.category === action.payload))
+                state.places = places.places.filter((e) => (e.category === action.payload))
                 state.category = action.payload
             }
         },
