@@ -81,16 +81,21 @@ export default function LeafLetMap() {
     const navigateTo = useSelector((state) => state.collagesStore.navigateTo); // Access navigateTo from Redux state
     const to = [21.18232818727316, 72.80600879597314]; // Destination (B)
 
+
+    // get current location
     useEffect(() => {
         // Request user's current position
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 setCurrentPosition([position.coords.latitude, position.coords.longitude]);
+
             },
             () => {
                 console.error('Could not retrieve your location');
             }
         );
+
+        console.log('current')
     }, []);
 
     // Fallback position in case geolocation is not available
@@ -111,6 +116,9 @@ export default function LeafLetMap() {
 
         useEffect(() => {
             if (currentPosition && !navigateTo.id) {
+
+                const newUserLocationMarker = L.marker(currentPosition).addTo(map); // Add new marker
+
 
                 // Add markers to the map
                 collages.forEach((collage) => {
@@ -147,6 +155,7 @@ export default function LeafLetMap() {
 
                 // Route(from, [navigateTo.lat, navigateTo.lng])
             }
+            console.log('current2')
 
             return () => {
                 // Cleanup map markers

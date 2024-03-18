@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { onPlaceHover, onNavigate } from "../placeRouteSlice"
+import {  onNavigate } from "../placeRouteSlice"
 
 
 export default function Recommendation() {
@@ -30,8 +30,8 @@ function RecommendationCard({ placeData }) {
     return (
         <div className="cursor-pointer max-lg:flex max-md:flex-col bg-white shadow-[0_8px_12px_-6px_rgba(0,0.6,0.6,0.6)] border w-full rounded-sm overflow-hidden justify-center mb-3"
 
-            onMouseEnter={() => { dispatch(onPlaceHover(placeData.id)) }}
-            onMouseLeave={() => { dispatch(onPlaceHover("")) }}
+            // onMouseEnter={() => { dispatch(onPlaceHover(placeData.id)) }}
+            // onMouseLeave={() => { dispatch(onPlaceHover("")) }}
         >
             <img src={placeData.url} className="w-full h-[250px] bg-auto bg-center" alt="Card" />
             <div className="flex flex-col justify-between px-3 my-6 gap-3 font-">

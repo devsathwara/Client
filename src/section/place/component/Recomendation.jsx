@@ -2,6 +2,8 @@ import React from 'react';
 import DropDownMenu from './dropDownMunu';
 import { useSelector, useDispatch } from 'react-redux';
 import { onPlaceHover } from '../mapPlaceSlice'
+import { onNavigate } from "../../placeRoute/placeRouteSlice"
+
 
 
 
@@ -52,7 +54,10 @@ function RecommendationCard({ placeData }) {
                 </div>
 
                 <button type="button"
-                    className="px-6 py-2 w-full mt-4 rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-[#fba834] hover:bg-[#d19848] active:bg-blue-600">
+                    className="px-6 py-2 w-full mt-4 rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-[#fba834] hover:bg-[#d19848] active:bg-blue-600"
+                    onClick={() => { dispatch(onNavigate(placeData)) }}
+
+                >
                     Navigate
                 </button>
             </div>

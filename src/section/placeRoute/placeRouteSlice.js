@@ -44,18 +44,17 @@ export const placeRouteSlice = createSlice({
     name: 'collages',
     initialState,
     reducers: {
-        onPlaceHover: (state, action) => {
-            state.hoverdPlaceID = action.payload
-
-            console.log(action.payload)
-        }
-        ,
+      
         onNavigate: (state, action) => {
+
+            state.navigateTo = {}
             state.navigateTo = action.payload
+        
+        console.log(state.navigateTo)
         }
     },
 })
 
-export const { onPlaceHover, onNavigate } = placeRouteSlice.actions
+export const {  onNavigate } = placeRouteSlice.actions
 
 export default placeRouteSlice.reducer

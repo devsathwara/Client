@@ -11,7 +11,8 @@ function useGoogleMapsLoader() {
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA4todpLrs5XYQAsgXD9hGRB5ZcgX4RD8g&libraries&callback=initMap`;
     script.async = true;
-    
+
+
     window.initMap = () => setIsLoaded(true); // Callback function to set isLoaded to true
     document.head.appendChild(script);
     return () => {
@@ -79,11 +80,11 @@ function MyMap2() {
   // Function to fetch nearby places using Google Places API
   const fetchNearbyPlaces = async (position) => {
 
-    const { Place } = await google.maps.importLibrary("places");
+    const { Place } = await  google.maps.importLibrary("places");
 
 
     const google = window.google;
-    const placesService = Place.PlacesService(map);
+    const placesService =  Place.PlacesService(map);
     const request = {
       location: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
       radius: '5000',
@@ -110,7 +111,10 @@ function MyMap2() {
     }
     console.log("marker not created")
 
-
+    return () => {
+      markersRef.current.forEach(marker => marker.setMap(null));
+      markersRef.current = [];
+    };
   }, [Selector, isGoogleMapsLoaded]);
 
 
@@ -124,6 +128,8 @@ function MyMap2() {
         ? new PinElement({ scale: 1.2, background: "#ffffff" }).element
         : null;
 
+
+
       const marker = new AdvancedMarkerElement({
         position: { lat: p.lat, lng: p.lng },
         map: mapRef.current,
@@ -132,8 +138,13 @@ function MyMap2() {
         zIndex: Selector.hoverdPlaceID === p.id ? 2 : undefined,
       });
 
+
+
+
       Selector.hoverdPlaceID === p.id ? moveToNewPosition({ lat: p.lat, lng: p.lng }) : null
       markersRef.current.push(marker);
+
+
 
       marker.addListener('click', () => {
         if (infoWindow) {
