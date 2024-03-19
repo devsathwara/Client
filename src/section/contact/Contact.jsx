@@ -13,7 +13,7 @@ const Contact = () => {
             <div className="flex flex-col items-center">
               <img
                 className="w-24 h-24 rounded-full"
-                src="https://via.placeholder.com/150"
+                src="src/assets/conatct/contact.png "
                 alt="Team Member"
               />
               <h4 className="mt-4 font-semibold text-lg text-gray-800">
@@ -31,7 +31,7 @@ const Contact = () => {
             <div className="flex flex-col items-center">
               <img
                 className="w-24 h-24 rounded-full"
-                src="https://via.placeholder.com/150"
+                src="src/assets/conatct/Critical Care.jpg"
                 alt="Team Member"
               />
               <h4 className="mt-4 font-semibold text-lg text-gray-800">
@@ -49,7 +49,7 @@ const Contact = () => {
             <div className="flex flex-col items-center">
               <img
                 className="w-24 h-24 rounded-full"
-                src="https://via.placeholder.com/150"
+                src="src/assets/conatct/alert.png"
                 alt="Team Member"
               />
               <h4 className="mt-4 font-semibold text-lg text-gray-800">
@@ -67,7 +67,7 @@ const Contact = () => {
             <div className="flex flex-col items-center">
               <img
                 className="w-24 h-24 rounded-full"
-                src="https://via.placeholder.com/150"
+                src="src/assets/conatct/Emergency Shelters.jpg"
                 alt="Team Member"
               />
               <h4 className="mt-4 font-semibold text-lg text-gray-800">
@@ -85,7 +85,7 @@ const Contact = () => {
             <div className="flex flex-col items-center">
               <img
                 className="w-24 h-24 rounded-full"
-                src="https://via.placeholder.com/150"
+                src="src/assets/conatct/exit.jpg"
                 alt="Team Member"
               />
               <h4 className="mt-4 font-semibold text-lg text-gray-800">
@@ -103,7 +103,7 @@ const Contact = () => {
             <div className="flex flex-col items-center">
               <img
                 className="w-24 h-24 rounded-full"
-                src="https://via.placeholder.com/150"
+                src="src/assets/conatct/emergency.jpg"
                 alt="Team Member"
               />
               <h4 className="mt-4 font-semibold text-lg text-gray-800">
