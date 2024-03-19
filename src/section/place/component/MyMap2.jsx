@@ -31,9 +31,7 @@ function MyMap2() {
   const markersRef = useRef([]);
 
   const [userLocation, setUserLocation] = useState(null)
-  // let userLocation = { lat: 21.179586, lng: 72.810340 };
-
-
+  
   const [infoWindow, setInfoWindow] = useState(null);
   const dispatch = useDispatch();
 
@@ -73,14 +71,10 @@ function MyMap2() {
             lng: position.coords.longitude,
           };
 
-
-          // setuserCurrentLoaction(userPos)
-
           mapRef.current.panTo(userPos)
-          // userLocation = userPos
           setUserLocation(userPos)
           createCurrentUserMarker(userPos);
-          // fetchNearbyHotels(userPos, Selector.category);
+          
         },
         (error) => {
           console.error('Error getting user location:', error);
@@ -100,7 +94,7 @@ function MyMap2() {
 
   // Function to fetch nearby places using Google Places API
   const fetchNearbyPlaces = (location, type) => {
-    if (!mapRef.current) return; // Ensure mapRef.current is available
+    if (!mapRef.current) return; 
 
     const { lat, lng } = location;
     const service = new window.google.maps.places.PlacesService(mapRef.current);
@@ -123,11 +117,10 @@ function MyMap2() {
             name: hotel.name,
             lat: hotel.geometry.location.lat(),
             lng: hotel.geometry.location.lng(),
-            category: 'hotel', // Assuming you have a category field
-            imageUrl: imageUrl, // Add image URL to the hotel information
+            category: 'hotel',
+            imageUrl: imageUrl,
           };
         });
-        // Dispatch action to store hotels in Redux state
         dispatch(getNearbyPlaces(hotels));
       }
     });
@@ -149,7 +142,7 @@ function MyMap2() {
       markersRef.current.forEach(marker => marker.setMap(null));
       markersRef.current = [];
     };
-  }, [Selector, isGoogleMapsLoaded]);
+  }, [Selector.places, isGoogleMapsLoaded]);
 
 
   // Function to create markers for places
@@ -162,8 +155,6 @@ function MyMap2() {
         ? new PinElement({ scale: 1.2, background: "#ffffff" }).element
         : null;
 
-
-
       const marker = new AdvancedMarkerElement({
         position: { lat: p.lat, lng: p.lng },
         map: mapRef.current,
@@ -172,13 +163,8 @@ function MyMap2() {
         zIndex: Selector.hoverdPlaceID === p.id ? 2 : undefined,
       });
 
-
-
-
       Selector.hoverdPlaceID === p.id ? moveToNewPosition({ lat: p.lat, lng: p.lng }) : null
       markersRef.current.push(marker);
-
-
 
       marker.addListener('click', () => {
         if (infoWindow) {

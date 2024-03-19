@@ -20,14 +20,7 @@ export const mapPlaceSlice = createSlice({
 
             state.category = action.payload
 
-            // if (action.payload === "all") {
-            //     state.places = places.places
-            //     state.category = "all"
-            // }
-            // else {
-            //     state.places = places.places.filter((e) => (e.category === action.payload))
-            //     state.category = action.payload
-            // }
+
         },
 
         onPlaceHover: (state, action) => {

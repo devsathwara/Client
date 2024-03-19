@@ -3,6 +3,7 @@ import DropDownMenu from './dropDownMunu';
 import { useSelector, useDispatch } from 'react-redux';
 import { onPlaceHover } from '../mapPlaceSlice'
 import { onNavigate } from "../../placeRoute/placeRouteSlice"
+import { useNavigate } from 'react-router-dom'; 
 
 
 
@@ -33,6 +34,8 @@ export default function Recommendation() {
 
 function RecommendationCard({ placeData }) {
     const dispatch = useDispatch()
+    const navigate = useNavigate(); 
+
 
     return (
         <div className="cursor-pointer max-lg:flex max-md:flex-col bg-white shadow-[0_8px_12px_-6px_rgba(0,0.6,0.6,0.6)] border w-full rounded-sm overflow-hidden justify-center mb-3"
@@ -55,7 +58,12 @@ function RecommendationCard({ placeData }) {
 
                 <button type="button"
                     className="px-6 py-2 w-full mt-4 rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-[#fba834] hover:bg-[#d19848] active:bg-blue-600"
-                    onClick={() => { dispatch(onNavigate(placeData)) }}
+                    onClick={() => {
+
+                        dispatch(onNavigate(placeData))
+                        navigate('/PlaceRoute');
+                   
+                    }}
 
                 >
                     Navigate

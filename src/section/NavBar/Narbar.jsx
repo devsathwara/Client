@@ -89,7 +89,7 @@ const Navbar = () => {
     <nav className="navbar ">
       <div className="navbar-container">
         <div className="navbar-logo">
-          <Link to={"/"}>
+          <Link  to={"/"}>
             <img
               src={logo}
               alt="Logo"
@@ -104,7 +104,7 @@ const Navbar = () => {
           <Link to={"/About"}>About</Link>
           <Link to={"/Contact"}>Contact</Link>
           <Link to={"/Navigate"}>Navigate</Link>
-          <Link to={"/PlaceRoute"}>PlaceRoute</Link>
+          <Link to={"/PlaceRoute"}>Locate</Link>
 
           
 
