@@ -11,7 +11,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer-distributed">
+      <footer className="footer-distributed h-[200px]">
         <div className="footer-left">
           <h3>
             Kumbh<span>Navigate</span>
@@ -51,7 +51,7 @@ const Footer = () => {
 
               <div>
                 <a href="mailto:support@company.com">
-                  <span className="text-[#fff] mb-2">abc@gmail.com</span>
+                  <span className="text-[#fff] mb-2">kumbhnavigate@gmail.com</span>
                 </a>
               </div>
             </div>
