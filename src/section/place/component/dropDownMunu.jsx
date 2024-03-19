@@ -52,27 +52,27 @@ export default function DropDownMenu() {
           </li>
           <li
             className="py-3 px-6 hover:bg-gray-100 text-black text-sm cursor-pointer"
-            onClick={() => handleSelect("stay")}
+            onClick={() => handleSelect("lodging")}
           >
             Stays
           </li>
           <li
             className="py-3 px-6 hover:bg-gray-100 text-black text-sm cursor-pointer"
-            onClick={() => handleSelect("toilets")}
+            onClick={() => handleSelect("park")}
           >
             toilets
           </li>
           <li
             className="py-3 px-6 hover:bg-gray-100 text-black text-sm cursor-pointer"
-            onClick={() => handleSelect("food_stalls")}
+            onClick={() => handleSelect("restaurant")}
           >
             food_stalls
           </li>
           <li
             className="py-3 px-6 hover:bg-gray-100 text-black text-sm cursor-pointer"
-            onClick={() => handleSelect("colleges")}
+            onClick={() => handleSelect("tourist_attraction")}
           >
-            colleges
+            Tourist Place
           </li>
         </ul>
       )}

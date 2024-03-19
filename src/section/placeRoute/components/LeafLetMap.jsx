@@ -39,12 +39,12 @@ function Route({ from, to }) {
         if (!map) return;
         const plan = new L.Routing.Plan([from, to], {
             createMarker: function (i, waypoint, numberOfWaypoints) {
-                // The number of waypoints includes the starting point and destination
+
                 return createCustomMarker(i, numberOfWaypoints, waypoint, {
-                    draggable: true
+                    draggable: false
                 });
             },
-            routeWhileDragging: true,
+            routeWhileDragging: false,
         });
 
 

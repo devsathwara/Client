@@ -40,7 +40,7 @@ function RecommendationCard({ placeData }) {
             onMouseEnter={() => { dispatch(onPlaceHover(placeData.id)) }}
             onMouseLeave={() => { dispatch(onPlaceHover("")) }}
         >
-            <img src={placeData.url} className="w-full h-[250px] bg-auto bg-center" alt="Card" />
+            <img src={placeData.imageUrl} className="w-full h-[250px] bg-auto bg-center" alt="Card" />
             <div className="flex flex-col justify-between px-3 my-6 gap-3 font-">
 
                 <div className='font-serif font-semibold'>

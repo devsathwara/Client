@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { updatePlaces } from '../mapPlaceSlice';
+import { updatePlaces, getNearbyPlaces } from '../mapPlaceSlice';
 
 // Custom hook to ensure Google Maps library is loaded
 function useGoogleMapsLoader() {
   const [isLoaded, setIsLoaded] = useState(false);
 
+
+
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA4todpLrs5XYQAsgXD9hGRB5ZcgX4RD8g&libraries&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDtOtDkj2UmvetGA13vyJJx91a_7O5awgg&libraries=places&callback=initMap`;
     script.async = true;
 
 
@@ -27,6 +29,11 @@ function MyMap2() {
   const Selector = useSelector((state) => state.placeStore);
   const mapRef = useRef(null);
   const markersRef = useRef([]);
+
+  const [userLocation, setUserLocation] = useState(null)
+  // let userLocation = { lat: 21.179586, lng: 72.810340 };
+
+
   const [infoWindow, setInfoWindow] = useState(null);
   const dispatch = useDispatch();
 
@@ -45,7 +52,7 @@ function MyMap2() {
     const pos = { lat: 21.179586, lng: 72.810340 };
     const map = new window.google.maps.Map(mapRef.current, {
       mapId: '9fcdcd6761d70af4',
-      center: pos,
+      center: userLocation,
       zoom: 13,
     });
     mapRef.current = map;
@@ -65,8 +72,15 @@ function MyMap2() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+
+
+          // setuserCurrentLoaction(userPos)
+
+          mapRef.current.panTo(userPos)
+          // userLocation = userPos
+          setUserLocation(userPos)
           createCurrentUserMarker(userPos);
-          fetchNearbyPlaces(userPos);
+          // fetchNearbyHotels(userPos, Selector.category);
         },
         (error) => {
           console.error('Error getting user location:', error);
@@ -77,24 +91,44 @@ function MyMap2() {
     }
   }
 
+  useEffect(() => {
+    if (userLocation && Selector.category && isGoogleMapsLoaded) {
+      fetchNearbyPlaces(userLocation, Selector.category);
+    }
+  }, [Selector.category, userLocation, isGoogleMapsLoaded]);
+
+
   // Function to fetch nearby places using Google Places API
-  const fetchNearbyPlaces = async (position) => {
+  const fetchNearbyPlaces = (location, type) => {
+    if (!mapRef.current) return; // Ensure mapRef.current is available
 
-    const { Place } = await  google.maps.importLibrary("places");
-
-
-    const google = window.google;
-    const placesService =  Place.PlacesService(map);
+    const { lat, lng } = location;
+    const service = new window.google.maps.places.PlacesService(mapRef.current);
     const request = {
-      location: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-      radius: '5000',
-      type: ['lodging'],
+      location: new window.google.maps.LatLng(lat, lng),
+      radius: '3000',
+      type: [type],
     };
 
-    placesService.nearbySearch(request, (results, status) => {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log('Places found: ', results);
-        dispatch(updatePlaces(results)); // Dispatch action to update Redux store
+    service.nearbySearch(request, (results, status) => {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
+        const hotels = results.map(hotel => {
+          let imageUrl = "";
+          if (hotel.photos && hotel.photos.length > 0) {
+
+            imageUrl = hotel.photos[0].getUrl({ maxWidth: 500 });
+          }
+          return {
+            id: hotel.place_id,
+            name: hotel.name,
+            lat: hotel.geometry.location.lat(),
+            lng: hotel.geometry.location.lng(),
+            category: 'hotel', // Assuming you have a category field
+            imageUrl: imageUrl, // Add image URL to the hotel information
+          };
+        });
+        // Dispatch action to store hotels in Redux state
+        dispatch(getNearbyPlaces(hotels));
       }
     });
   };
@@ -176,7 +210,7 @@ function MyMap2() {
     const contentString = `
       <div class="info-content" style="padding: 7px; max-width: 200px;">
         <h1 style="font-size: 15px; margin: 0;">${place.name}</h1>
-        <img src="${place.url}" class="w-full h-16 my-1 border p-0.5 border-black object-cover" alt="" />
+        <img src="${place.imageUrl}" class="w-full h-16 my-1 border p-0.5 border-black object-cover" alt="" />
         <p class="line-clamp-5 " style="font-size: 12px;">${place.description}</p>
       </div>
     `;
